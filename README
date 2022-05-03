@@ -1,0 +1,16 @@
+# 1.uboot
+
+使用版本:
+git clone -b nano-v2018.01 https://github.com/Lichee-Pi/u-boot.git
+
+# 2.linux
+
+使用版本:
+git clone -b f1c100s --depth 1 https://github.com/Icenowy/linux.git
+deconfig: http://dl.sipeed.com/LICHEE/Nano/SDK/config
+
+# 3.buildroot
+使用版本:
+buildroot-2022.02
+
+
