@@ -5,32 +5,18 @@ SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 cd $SCRIPT_DIR
 
 if [ "$_BOOT_DEV" = tf ]; then  #tf
-	if [ "$_KERNEL_TYPE" = main ]; then #main
 (
 cat << EOF
 setenv bootargs console=tty0 console=ttyS0,115200 panic=5 rootwait root=/dev/mmcblk0p2 rw 
-load mmc 0:1 0x80C00000 suniv-f1c100s-licheepi-nano.dtb
+load mmc 0:1 0x80C00000 $_DTB_NAME
 load mmc 0:1 0x80008000 zImage
 bootz 0x80008000 - 0x80C00000
 EOF
 ) > boot.cmd		
-	else	#bsp
-(
-cat << EOF
-setenv bootargs console=tty0 console=ttyS0,115200 panic=5 rootwait root=/dev/mmcblk0p2 rw 
-setenv bootm_boot_mode sec
-setenv machid 1029
-load mmc 0:1 0x80C00000 suniv-f1c100s-licheepi-nano.dtb
-load mmc 0:1 0x80008000 zImage
-bootz 0x80008000 - 0x80C00000
-EOF
-)> boot.cmd
-	fi
+
 else  #spi
-	if [ "$_KERNEL_TYPE" = main ]; then #main
-	echo "main spi"
-        else	#bsp
-	echo "bspspi"
-        fi
+	echo "spi flash"
+
 fi
+
 mkimage -C none -A arm -T script -d boot.cmd $_UBOOT_SCR_FILE

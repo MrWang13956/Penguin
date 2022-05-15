@@ -90,47 +90,25 @@ EOT
     # 			TF MAINLINE KERNEL				#
     #############################################
     echo_tip "TF MAINLINE KERNEL"
-    if [ "$_KERNEL_TYPE" = main ] ; then
-        sudo cp $_KERNEL_FILE $_P1/zImage &&\
-        sudo cp $_DTB_FILE $_P1/ &&\
-        sudo cp $_UBOOT_SCR_FILE $_P1/ &&\
-        echo_log "p1 done~"
-        sudo tar xzvf $_ROOTFS_FILE -C $_P2/ &&\
-        echo_log "p2 done~"
-        sudo mkdir -p $_P2/lib/modules/${_KERNEL_VER}-next-20180202-licheepi-nano+/ &&\
-		if [ ! "$(ls $_MOD_FILE)" = "" ]; then
-        	sudo cp -r $_MOD_FILE/*  $_P2/lib/modules/${_KERNEL_VER}-next-20180202-licheepi-nano+/
-		fi
-		echo_log "modules done~"
-        
-        if [ $? -ne 0 ]
-        then echo_err  "copy files error! "
-            sudo losetup -d $_LOOP_DEV >/dev/null 2>&1
-            sudo umount ${_LOOP_DEV}p1  ${_LOOP_DEV}p2 >/dev/null 2>&1
-            exit
-        fi
-        echo_log "The tf card image-packing task done~"
-        
-    else
-        #############################################
-        # 				TF BSP KERNEL				#
-        #############################################
-        echo_tip "TF BSP KERNEL"
-        sudo cp $_KERNEL_FILE $_P1/zImage &&\
-        sudo cp $_SCRIPT_FILE $_P1/script.bin &&\
-        sudo cp $_UBOOT_SCR_FILE $_P1/ &&\
-        sudo tar xzvf $_ROOTFS_FILE -C $_P2/ &&\
-        sudo mkdir -p $_P2/lib/modules/${_KERNEL_VER}/ &&\
-        sudo cp -r $_MOD_FILE/*  $_P2/lib/modules/${_KERNEL_VER}/
-        if [ $? -ne 0 ] ; then
-            echo_err  "copy files error! "
-            sudo losetup -d $_LOOP_DEV >/dev/null 2>&1
-            sudo umount ${_LOOP_DEV}p1  ${_LOOP_DEV}p2 >/dev/null 2>&1
-            exit
-        fi
-        echo_log  "BSP task done~"
-    fi
-    
+	sudo cp $_KERNEL_FILE $_P1/zImage &&\
+	sudo cp $_DTB_FILE $_P1/ &&\
+	sudo cp $_UBOOT_SCR_FILE $_P1/ &&\
+	echo_log "p1 done~"
+	sudo tar xzvf $_ROOTFS_FILE -C $_P2/ &&\
+	echo_log "p2 done~"
+	sudo mkdir -p $_P2/lib/modules/${_KERNEL_VER}-f1c100s-wyl1d/ &&\
+	if [ ! "$(ls $_MOD_FILE)" = "" ]; then
+		sudo cp -r $_MOD_FILE/*  $_P2/lib/modules/${_KERNEL_VER}-f1c100s-wyl1d/
+	fi
+	echo_log "modules done~"
+
+	if [ $? -ne 0 ]
+	then echo_err  "copy files error! "
+	    sudo losetup -d $_LOOP_DEV >/dev/null 2>&1
+	    sudo umount ${_LOOP_DEV}p1  ${_LOOP_DEV}p2 >/dev/null 2>&1
+	    exit
+	fi
+	echo_log "The tf card image-packing task done~"
     
     sudo sync
     sudo umount $_P1 $_P2  && sudo losetup -d $_LOOP_DEV

@@ -3,7 +3,7 @@
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 LOCAL_UBOOT="$SCRIPT_DIR/../u-boot"
-LOCAL_LINUX="$SCRIPT_DIR/../linux-4.15"
+LOCAL_LINUX="$SCRIPT_DIR/../linux-5.4.193"
 LOCAL_BUILDROOT="$SCRIPT_DIR/../buildroot"
 BUILD="$SCRIPT_DIR/build"
 OUTPUT="$BUILD/output"
@@ -45,12 +45,12 @@ then
 		cd $LOCAL_LINUX
 		./linux_compile.sh -m linux
 		cp arch/arm/boot/zImage $OUTPUT/kernel/tf-zImage
-		cp arch/arm/boot/dts/suniv-f1c100s-licheepi-nano.dtb $OUTPUT/kernel/dtb/suniv-f1c100s-licheepi-nano.dtb
+		cp arch/arm/boot/dts/suniv-f1c100s-wyl1d.dtb $OUTPUT/kernel/dtb/suniv-f1c100s-wyl1d.dtb
 	elif [ $2 = "dtbs" ]
 	then
 		cd $LOCAL_LINUX
 		./linux_compile.sh -m dtbs
-		cp arch/arm/boot/dts/suniv-f1c100s-licheepi-nano.dtb $OUTPUT/kernel/dtb/suniv-f1c100s-licheepi-nano.dtb
+		cp arch/arm/boot/dts/suniv-f1c100s-wyl1d.dtb $OUTPUT/kernel/dtb/suniv-f1c100s-wyl1d.dtb
 	elif [ $2 = "buildroot" ]
 	then
 		cd $LOCAL_BUILDROOT
@@ -64,6 +64,9 @@ elif [ $1 = "package" ]
 then
 	cd $BUILD
 	./pack_tf_img.sh
+	echo -e "\ndd image"
+	echo "sudo dd if=$BUILD/output/image/WYL1D_tf.dd of=/dev/device && sync"
+
 	
 elif [ $1 = "clean" ]
 then
