@@ -13,7 +13,7 @@ git clone -b f1c100s-spiflash https://github.com/Icenowy/sunxi-tools.git
 # 2.linux
 
 使用版本:
-git clone -b f1c100s --depth 1 https://github.com/Icenowy/linux.git
+主线linux-5.4.193,https://www.kernel.org/.
 deconfig: http://dl.sipeed.com/LICHEE/Nano/SDK/config
 
 
