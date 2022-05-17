@@ -7,6 +7,8 @@ LOCAL_LINUX="$SCRIPT_DIR/../linux-5.4.193"
 LOCAL_BUILDROOT="$SCRIPT_DIR/../buildroot"
 BUILD="$SCRIPT_DIR/build"
 OUTPUT="$BUILD/output"
+DEBUG="$BUILD/debug"
+DTB_NAME="suniv-f1c100s-wyl1d.dtb"
 
 source $SCRIPT_DIR/setup_env.sh
 
@@ -40,17 +42,22 @@ then
 		cd $LOCAL_UBOOT
 		./uboot_compile.sh -m &&\
 		cp u-boot-sunxi-with-spl.bin $OUTPUT/uboot/u-boot-tf.bin
+		cp u-boot-sunxi-with-spl.bin $DEBUG/u-boot-tf.bin
 	elif [ $2 = "linux" ]
 	then
 		cd $LOCAL_LINUX
 		./linux_compile.sh -m linux
 		cp arch/arm/boot/zImage $OUTPUT/kernel/tf-zImage
-		cp arch/arm/boot/dts/suniv-f1c100s-wyl1d.dtb $OUTPUT/kernel/dtb/suniv-f1c100s-wyl1d.dtb
+		cp arch/arm/boot/dts/$DTB_NAME $OUTPUT/kernel/dtb/
+
+		cp arch/arm/boot/zImage $DEBUG/tf-zImage
+		cp arch/arm/boot/dts/$DTB_NAME $DEBUG/
 	elif [ $2 = "dtbs" ]
 	then
 		cd $LOCAL_LINUX
 		./linux_compile.sh -m dtbs
-		cp arch/arm/boot/dts/suniv-f1c100s-wyl1d.dtb $OUTPUT/kernel/dtb/suniv-f1c100s-wyl1d.dtb
+		cp arch/arm/boot/dts/$DTB_NAME $OUTPUT/kernel/dtb/
+		cp arch/arm/boot/dts/$DTB_NAME $DEBUG/
 	elif [ $2 = "buildroot" ]
 	then
 		cd $LOCAL_BUILDROOT
@@ -66,7 +73,6 @@ then
 	./pack_tf_img.sh
 	echo -e "\ndd image"
 	echo "sudo dd if=$BUILD/output/image/WYL1D_tf.dd of=/dev/device && sync"
-
 	
 elif [ $1 = "clean" ]
 then

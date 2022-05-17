@@ -21,6 +21,7 @@ export _DTB_FILE=$_DTB_DIR/$_DTB_NAME
 export _KERNEL_FILE=$_KERNEL_DIR/$_BOOT_DEV-zImage
 export _ROOTFS_FILE=$_ROOTFS_DIR/rootfs-$_BOOT_DEV.tar.gz
 export _IMG_FILE=$_IMG_DIR/WYL1D_$_BOOT_DEV.dd
+
 source $SCRIPT_DIR/gen_scr.sh $_BOOT_DEV $_DTB_NAME $_UBOOT_SCR_FILE
 
 

@@ -17,7 +17,6 @@ echo_err ()
 # check the environment variables roughly
 if [ -z $_TOP_DIR ] ; then
     echo_err "please make sure you have configure the environment variables in ./env.sh correctly！"
-    echo_err "please using: 	cd ./configs; source ./configs/xxx.sh to setup the variables."
     exit
 fi
 
