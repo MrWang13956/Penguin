@@ -4,6 +4,7 @@
  */
 
 /dts-v1/;
+#include <dt-bindings/interrupt-controller/irq.h>
 #include "suniv-f1c100s.dtsi"
 
 / {
@@ -44,4 +45,21 @@
 	bus-width = <4>;
 	broken-cd;
 	status = "okay";
+};
+
+&i2c0 {
+	status = "okay";
+
+	xio: gpio@20 {
+		compatible = "nxp,pcf8574";
+		reg = <0x20>;
+
+		gpio-controller;
+		#gpio-cells = <2>;
+
+		interrupt-parent = <&pio>;
+		interrupts = <6 0 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-controller;
+		#interrupt-cells = <2>;
+	};
 };
