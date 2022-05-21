@@ -5,6 +5,7 @@
 
 /dts-v1/;
 #include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/gpio/gpio.h>
 #include "suniv-f1c100s.dtsi"
 
 / {
@@ -25,6 +26,24 @@
 		regulator-name = "vcc3v3";
 		regulator-min-microvolt = <3300000>;
 		regulator-max-microvolt = <3300000>;
+	};
+
+	gpio_leds: gpio_leds {
+		compatible = "gpio-leds";
+
+		led0 {
+			label = "led0";
+			gpios = <&xio 4 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "backlignt";
+			default-state = "off";
+		};
+
+		led1 {
+			label = "led1";
+			gpios = <&xio 5 GPIO_ACTIVE_LOW>;
+			linux,default-trigger = "backlignt";
+			default-state = "off";
+		};
 	};
 };
 
