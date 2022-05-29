@@ -122,4 +122,10 @@ config VIRT_WIFI
 	  This option adds support for ethernet connections to appear as if they
 	  are wifi connections through a special rtnetlink device.
 
+config WLAN_ESP8089_SPI
+	tristate "Wifi esp8089 support"
+	depends on SPI
+	---help---
+	  ESP8089 is a wifi chip with spi interface.
+
 endif # WLAN
