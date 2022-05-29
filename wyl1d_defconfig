@@ -2265,7 +2265,8 @@ BR2_PACKAGE_LIBOPENH264_ARCH_SUPPORTS=y
 # BR2_PACKAGE_LIBNFTNL is not set
 # BR2_PACKAGE_LIBNICE is not set
 # BR2_PACKAGE_LIBNIDS is not set
-# BR2_PACKAGE_LIBNL is not set
+BR2_PACKAGE_LIBNL=y
+# BR2_PACKAGE_LIBNL_TOOLS is not set
 
 #
 # libnpupnp needs a toolchain w/ C++, threads, gcc >= 4.9
@@ -2963,14 +2964,14 @@ BR2_PACKAGE_IFUPDOWN_SCRIPTS=y
 #
 # iperf needs a toolchain w/ C++
 #
-# BR2_PACKAGE_IPERF3 is not set
+BR2_PACKAGE_IPERF3=y
 # BR2_PACKAGE_IPROUTE2 is not set
 # BR2_PACKAGE_IPSET is not set
 # BR2_PACKAGE_IPTABLES is not set
 # BR2_PACKAGE_IPTRAF_NG is not set
 # BR2_PACKAGE_IPUTILS is not set
 # BR2_PACKAGE_IRSSI is not set
-# BR2_PACKAGE_IW is not set
+BR2_PACKAGE_IW=y
 # BR2_PACKAGE_IWD is not set
 # BR2_PACKAGE_JANUS_GATEWAY is not set
 # BR2_PACKAGE_KEEPALIVED is not set
