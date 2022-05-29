@@ -248,6 +248,11 @@
 				function = "i2c0";
 			};
 
+			spi0_pins_a: spi0-pins-pc {
+				pins = "PC0", "PC1", "PC2", "PC3";
+				function = "spi0";
+			};
+
 			lcd_rgb666_pins: lcd-rgb666-pins {
 				pins = "PD0", "PD1", "PD2", "PD3", "PD4",
 				       "PD5", "PD6", "PD7", "PD8", "PD9",
@@ -313,6 +318,21 @@
 			resets = <&ccu RST_BUS_I2C0>;
 			pinctrl-names = "default";
 			pinctrl-0 = <&i2c0_pins>;
+			status = "disabled";
+			#address-cells = <1>;
+			#size-cells = <0>;
+		};
+
+		spi0: spi@1c05000 {
+			compatible = "allwinner,suniv-spi",
+				     "allwinner,sun8i-h3-spi";
+			reg = <0x01c05000 0x1000>;
+			interrupts = <10>;
+			clocks = <&ccu CLK_BUS_SPI0>, <&ccu CLK_BUS_SPI0>;
+			clock-names = "ahb", "mod";
+			resets = <&ccu RST_BUS_SPI0>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&spi0_pins_a>;
 			status = "disabled";
 			#address-cells = <1>;
 			#size-cells = <0>;
