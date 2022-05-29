@@ -3,9 +3,9 @@
 
 /* https://www.signal.com.tr/pdf/cat/8n-esp8266_spi_reference_en_v1.0.pdf */
 
-#define SPI_FREQ (10000000)
+//#define SPI_FREQ (10000000)
 //#define SPI_FREQ (20000000)                             //  1. 22.5Mhz     2. 45Mhz
-//#define SPI_FREQ (30000000)                             //  1. 22.5Mhz     2. 45Mhz
+#define SPI_FREQ (30000000)                             //  1. 22.5Mhz     2. 45Mhz
 
 //Below are for spi HZ 22.5M
 #if (SPI_FREQ == 30000000)
@@ -83,6 +83,8 @@ BLOCK_R_DATA_RESP_SIZE_EACH   -10x+40
 #include <linux/gpio.h>
 #include <linux/module.h>
 #include <linux/moduleparam.h>
+#include <linux/of.h>
+#include <linux/of_gpio.h>
 
 /* *** *** Board info *** *** */
 
@@ -93,10 +95,6 @@ struct spi_device_id esp_spi_id[] = {
   {},
 };
 MODULE_DEVICE_TABLE(spi, esp_spi_id);
-
-static int esp_cs0_pin = 16;
-module_param(esp_cs0_pin, int, 0);
-MODULE_PARM_DESC(esp_cs0_pin, "SPI chip select zero");
 
 #ifdef REGISTER_SPI_BOARD_INFO
 
@@ -109,9 +107,9 @@ static struct spi_board_info esp_board_spi_devices[] = {
   {
     .modalias = "ESP8089_0",
     .max_speed_hz = MAX_SPEED_HZ,
-    .bus_num = 1,
+    .bus_num = 0,
     .chip_select = 0,
-    .mode = 0,
+    .mode = SPI_MODE_3,
   },
 };
 
@@ -132,11 +130,7 @@ struct spi_device* sif_platform_new_device(void) {
 }
 #endif
 
-/* *** *** Interrupt *** *** */
-
-static int esp_interrupt = 26;
-module_param(esp_interrupt, int, 0);
-MODULE_PARM_DESC(esp_interrupt, "Interrupt pin");
+static int esp_interrupt;
 
 int sif_platform_irq_init(void) { 
   int ret;
@@ -214,34 +208,36 @@ SDIO:
   GPIO11  SDCMD
 */
 
-static int esp_reset_gpio = 13;
-module_param(esp_reset_gpio, int, 0);
-MODULE_PARM_DESC(esp_reset_gpio, "ESP8089 CHIP_EN GPIO number");
+#define ESP_NODE 			"/esp8089"
+#define GPIO_HIGH 				1
+#define GPIO_LOW 				0
+
+static int esp_reset_gpio;
+
+void sif_platform_pins_init(void) {
+	struct device_node *esp_nd;
+
+	esp_nd = of_find_node_by_path(ESP_NODE);
+	esp_reset_gpio = of_get_named_gpio(esp_nd, "rst-gpios", 0);
+	esp_interrupt = of_get_named_gpio(esp_nd, "int", 0);
+	gpio_direction_output(esp_reset_gpio, GPIO_LOW);
+}
 
 void sif_platform_reset_target(void) {
-  gpio_request(esp_reset_gpio, "esp_reset_gpio");
-  gpio_direction_output(esp_reset_gpio, 0);
-  mdelay(200);
-  gpio_direction_output(esp_reset_gpio, 1);
-  mdelay(200);
-  gpio_free(esp_reset_gpio);
+	gpio_direction_output(esp_reset_gpio, GPIO_LOW);
+	mdelay(200);
+	gpio_direction_output(esp_reset_gpio, GPIO_HIGH);
+	mdelay(200);
 }
 
 void sif_platform_target_poweroff(void) {
-  gpio_direction_output(esp_reset_gpio, 0);
+	gpio_direction_output(esp_reset_gpio, GPIO_LOW);
 }
 
 void sif_platform_target_poweron(void) {
-  gpio_request(esp_reset_gpio, "esp_reset_gpio");
-  mdelay(200);
-  gpio_direction_output(esp_reset_gpio, 0);
-  mdelay(200);
-  gpio_direction_output(esp_reset_gpio, 1);
-  mdelay(200);
-  gpio_free(esp_reset_gpio);
+	sif_platform_reset_target();
 }
 
-//module_init(esp_spi_init);
 late_initcall(esp_spi_init);
 module_exit(esp_spi_exit);
 

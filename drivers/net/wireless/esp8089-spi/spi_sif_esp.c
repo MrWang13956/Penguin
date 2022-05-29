@@ -2343,6 +2343,7 @@ static int __init esp_spi_init(void) {
   edf_ret = esp_debugfs_init();
 
 	request_init_conf();
+	sif_platform_pins_init();
 
   esp_wakelock_init();
   esp_wake_lock();

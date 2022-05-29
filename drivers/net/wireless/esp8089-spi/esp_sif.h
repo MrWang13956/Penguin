@@ -262,6 +262,7 @@ struct slc_host_regs * sif_get_regs(struct esp_pub *epub);
 void sif_lock_bus(struct esp_pub *epub);
 void sif_unlock_bus(struct esp_pub *epub);
 
+void sif_platform_pins_init(void);
 void sif_platform_target_poweroff(void);
 void sif_platform_target_poweron(void);
 void sif_platform_target_speed(int high_speed);
