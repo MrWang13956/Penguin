@@ -95,9 +95,9 @@ EOT
 	echo_log "p1 done~"
 	sudo tar xzvf $_ROOTFS_FILE -C $_P2/ &&\
 	echo_log "p2 done~"
-	sudo mkdir -p $_P2/lib/modules/${_KERNEL_VER}-f1c100s-wyl1d/ &&\
+	sudo mkdir -p $_P2/lib/modules/${_KERNEL_VER}+/ &&\
 	if [ ! "$(ls $_MOD_FILE)" = "" ]; then
-		sudo cp -r $_MOD_FILE/*  $_P2/lib/modules/${_KERNEL_VER}-f1c100s-wyl1d/
+		sudo cp -r $_MOD_FILE/*  $_P2/lib/modules/${_KERNEL_VER}+/
 	fi
 	echo_log "modules done~"
 

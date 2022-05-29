@@ -12,7 +12,7 @@ export _IMG_SIZE=200
 export _UBOOT_SIZE=1
 export _CFG_SIZEKB=0
 export _P1_SIZE=16
-export _MOD_FILE=$_MOD_DIR/$_KERNEL_VER-f1c100s-wyl1d
+export _MOD_FILE=$_MOD_DIR/$_KERNEL_VER+
 
 export _UBOOT_FILE=$_UBOOT_DIR/u-boot-$_BOOT_DEV.bin
 export _UBOOT_SCR_FILE=$_UBOOT_DIR/boot.scr
