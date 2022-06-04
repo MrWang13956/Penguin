@@ -88,6 +88,22 @@
 	status = "okay";
 };
 
+&csi0 {
+	status = "okay";
+    pinctrl-names = "default";
+    pinctrl-0 = <&csi0_clk &csi0_8bit>;
+
+	port@0 {
+		csi0_ep: endpoint@0 {
+			remote-endpoint = <&ov2640_0>;
+			hsync-active = <0>;
+			vsync-active = <0>;
+			bus-width = <8>;
+			pclk-sample = <1>;
+		};
+	};
+ };
+
 &i2c0 {
 	status = "okay";
 
@@ -102,6 +118,24 @@
 		interrupts = <6 0 IRQ_TYPE_EDGE_FALLING>;
 		interrupt-controller;
 		#interrupt-cells = <2>;
+	};
+
+	ov2640: camera@30 {
+		compatible = "ovti,ov2640";
+		reg = <0x30>;
+		clocks = <&csi_mclk>;
+		clock-names = "xvclk";
+		assigned-clocks = <&csi_mclk>;
+		assigned-clock-rates = <24000000>;
+		resetb = <&xio 1 GPIO_ACTIVE_LOW>;
+		pwdn = <&xio 2 GPIO_ACTIVE_HIGH>;
+
+		port@0 {
+			ov2640_0: endpoint@0 {
+				remote-endpoint = <&csi0_ep>;
+				bus-width = <8>;
+			};
+		};
 	};
 };
 
