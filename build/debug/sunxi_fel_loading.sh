@@ -14,4 +14,4 @@ echo "查看芯片是否进入fel模式"
 sunxi-fel ver
 
 echo "加载固件"
-sunxi-fel -p uboot u-boot-tf.bin write 0x80008000 tf-zImage write 0x80C00000 suniv-f1c100s-wyl1d.dtb
+sunxi-fel -p uboot u-boot-tf.bin write 0x80008000 tf-zImage write 0x80C00000 suniv-f1c100s-penguin.dtb

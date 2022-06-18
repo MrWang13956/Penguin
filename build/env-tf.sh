@@ -7,7 +7,7 @@ source $SCRIPT_DIR/env.sh
 export _BOOT_DEV=tf
 export _KERNEL_TYPE=main
 export _KERNEL_VER=5.4.193
-export _DT_NAME=suniv-f1c100s-wyl1d
+export _DT_NAME=suniv-f1c100s-penguin
 export _IMG_SIZE=200
 export _UBOOT_SIZE=1
 export _CFG_SIZEKB=0
@@ -20,7 +20,7 @@ export _DTB_NAME=$_DT_NAME.dtb
 export _DTB_FILE=$_DTB_DIR/$_DTB_NAME
 export _KERNEL_FILE=$_KERNEL_DIR/$_BOOT_DEV-zImage
 export _ROOTFS_FILE=$_ROOTFS_DIR/rootfs-$_BOOT_DEV.tar.gz
-export _IMG_FILE=$_IMG_DIR/WYL1D_$_BOOT_DEV.dd
+export _IMG_FILE=$_IMG_DIR/penguin_$_BOOT_DEV.dd
 
 source $SCRIPT_DIR/gen_scr.sh $_BOOT_DEV $_DTB_NAME $_UBOOT_SCR_FILE
 

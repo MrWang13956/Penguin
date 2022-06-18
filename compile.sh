@@ -8,7 +8,7 @@ LOCAL_BUILDROOT="$SCRIPT_DIR/../buildroot"
 BUILD="$SCRIPT_DIR/build"
 OUTPUT="$BUILD/output"
 DEBUG="$BUILD/debug"
-DTB_NAME="suniv-f1c100s-wyl1d.dtb"
+DTB_NAME="suniv-f1c100s-penguin.dtb"
 
 source $SCRIPT_DIR/setup_env.sh
 
@@ -72,7 +72,7 @@ then
 	cd $BUILD
 	./pack_tf_img.sh
 	echo -e "\ndd image"
-	echo "sudo dd if=$BUILD/output/image/WYL1D_tf.dd of=/dev/device && sync"
+	echo "sudo dd if=$BUILD/output/image/penguin_tf.dd of=/dev/device && sync"
 	
 elif [ $1 = "clean" ]
 then
