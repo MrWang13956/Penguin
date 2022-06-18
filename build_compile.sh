@@ -2,9 +2,9 @@
 
 SCRIPT_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 DL="$SCRIPT_DIR/buildroot-2022.02/dl"
-CONFIG="$SCRIPT_DIR/buildroot-2022.02/configs/wyl1d_defconfig"
+CONFIG="$SCRIPT_DIR/buildroot-2022.02/configs/penguin_defconfig"
 
-MAKE_CONFIG="sudo make wyl1d_defconfig"
+MAKE_CONFIG="sudo make penguin_defconfig"
 MAKE_MENUCONFIG="sudo make menuconfig"
 MAKE_BUSYBOX="sudo make busybox-menuconfig -j16"
 MAKE_BUILDROOT="sudo make -j16"
@@ -17,7 +17,7 @@ fi
 
 if [ ! -f "$CONFIG" ]
 then
-	ln -rs wyl1d_defconfig buildroot-2022.02/configs/wyl1d_defconfig
+	ln -rs penguin_defconfig buildroot-2022.02/configs/penguin_defconfig
 fi
 
 
@@ -34,7 +34,7 @@ then
 elif [ $1 = "-m" ]
 then
 	cd $SCRIPT_DIR/buildroot-2022.02
-	$MAKE_CONFIG && $MAKE_MENUCONFIG && cp .config $SCRIPT_DIR/wyl1d_defconfig
+	$MAKE_CONFIG && $MAKE_MENUCONFIG && cp .config $SCRIPT_DIR/penguin_defconfig
 	$MAKE_BUSYBOX
 	$MAKE_BUILDROOT
 
