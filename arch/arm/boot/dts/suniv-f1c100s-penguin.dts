@@ -9,8 +9,8 @@
 #include "suniv-f1c100s.dtsi"
 
 / {
-	model = "WYL1D";
-	compatible = "weiye,wyl1d", "allwinner,suniv-f1c100s";
+	model = "penguin";
+	compatible = "weiye,penguin", "allwinner,suniv-f1c100s";
 
 	aliases {
 		serial0 = &uart0;

@@ -1,6 +1,6 @@
 #/bin/bash
 
-MAKE_CONFIG="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- wyl1d_defconfig -j16"
+MAKE_CONFIG="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- penguin_defconfig -j16"
 MAKE_LINUX="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j16"
 MAKE_DTBS="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- dtbs -j16"
 CLEAN_LINUX="make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- distclean -j16"
