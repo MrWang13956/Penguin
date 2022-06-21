@@ -159,3 +159,16 @@
 &spi0 {
 	status = "okay";
 };
+
+&otg_sram {
+	status = "okay";
+};
+
+&usb_otg {
+	dr_mode = "otg"; /* otg / host / peripheral */
+	status = "okay";
+};
+
+&usbphy {
+	status = "okay";
+};
