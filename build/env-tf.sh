@@ -13,6 +13,7 @@ export _UBOOT_SIZE=1
 export _CFG_SIZEKB=0
 export _P1_SIZE=16
 export _MOD_FILE=$_MOD_DIR/$_KERNEL_VER+
+export _INIT_SCRIPT=$_SCRIPT_DIR/init.d
 
 export _UBOOT_FILE=$_UBOOT_DIR/u-boot-$_BOOT_DEV.bin
 export _UBOOT_SCR_FILE=$_UBOOT_DIR/boot.scr

@@ -101,6 +101,11 @@ EOT
 	fi
 	echo_log "modules done~"
 
+	if [ ! "$(ls $_INIT_SCRIPT)" = "" ]; then
+		sudo cp -r $_INIT_SCRIPT/*  $_P2/etc/init.d/
+	fi
+	echo_log "init script done~"
+
 	if [ $? -ne 0 ]
 	then echo_err  "copy files error! "
 	    sudo losetup -d $_LOOP_DEV >/dev/null 2>&1
