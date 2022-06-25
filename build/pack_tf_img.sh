@@ -106,6 +106,9 @@ EOT
 	fi
 	echo_log "init script done~"
 
+	sudo dd if=/dev/zero of=$_P2/root/swapfile bs=1M count=32
+	sudo chmod 600 $_P2/root/swapfile
+
 	if [ $? -ne 0 ]
 	then echo_err  "copy files error! "
 	    sudo losetup -d $_LOOP_DEV >/dev/null 2>&1
